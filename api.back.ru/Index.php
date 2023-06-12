@@ -102,3 +102,7 @@
  if ($type === 'auth') {
      auth($conn, $_POST);
  }
+
+ if ($type === 'sessionClose') {
+     sessionClose($conn);
+ }

@@ -252,6 +252,19 @@ function auth($conn, $data) {
     }
     else {
         $user = mysqli_fetch_assoc($user);
+        $user_id = $user['id'];
+        $full_name = $user['full_name'];
+        $email = $user['email'];
+        $phone = $user['phone'];
+        $date_of_birth = $user['date_of_birth'];
+        $gender = $user['gender'];
+        $position = $user['position'];
+        mysqli_query($conn, "INSERT INTO `session` (`id`, `user_id`, `full_name`, `email`, `phone`, `date_of_birth`, `gender`, `position`) VALUES (NULL, '$user_id', '$full_name', '$email', '$phone', '$date_of_birth', '$gender', '$position')");
+
         echo json_encode($user);
     }
+}
+
+function sessionClose($conn) {
+    mysqli_query($conn, "DELETE FROM `session`");
 }

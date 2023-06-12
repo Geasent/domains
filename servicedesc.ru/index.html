@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Service desc</title>
+    <link href="main.css" rel="stylesheet">
     <link href="bootstrap/bootstrap.css" rel="stylesheet">
+    <style>
+        body {background-color: #303030}
+    </style>
 </head>
-<body>
-<div class="container">
-    <form>
+<body style="height: 100%">
+<div class="container" id="auth_container" style="width: 25%">
+    <form style="margin-top: 30vh">
         <div class="mb-3">
-            <label for="login" class="form-label">Login</label>
+            <label style="color: #eaeaea" for="login" class="form-label">Логин</label>
             <input type="text" class="form-control" id="login" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your login with anyone else.</div>
-        </div>
+            </div>
         <div class="mb-3">
-            <label for="pass" class="form-label">Password</label>
+            <label style="color: #eaeaea" for="pass" class="form-label">Пароль</label>
             <input type="password" class="form-control" id="pass">
         </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" onclick="auth()" class="btn btn-primary">Submit</button>
+        <button style="margin-bottom: 5px; color: #eaeaea" type="submit" onclick="auth()" class="btn btn-primary">Войти</button>
+        <button style="margin-bottom: 5px; color: #eaeaea" type="button" onclick="location.href='register.html'" class="btn btn-primary">Зарегистрироваться</button>
     </form>
 </div>
 <script src="bootstrap/bootstrap.bundle.js"></script>

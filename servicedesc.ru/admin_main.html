@@ -9,7 +9,7 @@
         body {background-color: #303030}
     </style>
 </head>
-<body onload="getTasks()">
+<body onload="getTasks(); sessionClose()">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Bozika</a>
@@ -47,18 +47,6 @@
             <div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
                 <div class="d-grid gap-2 col-6 mx-auto task-list1">
 
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
-                <div class="d-grid gap-2 col-6 mx-auto task_list">
-                    <div class="card text-bg-dark" text-bg-dark style="width: 10rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <a href="#" class="btn btn-primary">Подробнее</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
