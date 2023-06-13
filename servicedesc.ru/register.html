@@ -3,8 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
+    <link href="main.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap.css" rel="stylesheet">
+    <style>
+        body {background-color: #303030}
+    </style>
 </head>
 <body>
-
+    <div class="container" id="auth_container" style="width: 25%">
+        <form style="margin-top: 10vh">
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="login" class="form-label">Логин</label>
+                <input type="text" class="form-control" id="login" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="pass" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="pass" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="confirm_pass" class="form-label">Подтвердите пароль</label>
+                <input type="password" class="form-control" id="confirm_pass" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="role" class="form-label">Ваша роль в организации</label>
+                <input type="text" class="form-control" id="role" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="full_name" class="form-label">Ваше ФИО</label>
+                <input type="text" class="form-control" id="full_name" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="emai" class="form-label">Ваш Email</label>
+                <input type="text" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="phone" class="form-label">Ваш телефон</label>
+                <input type="text" class="form-control" id="phone" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="gender" class="form-label">Ваш пол</label>
+                <input type="text" class="form-control" id="gender" required>
+            </div>
+            <div class="mb-3">
+                <label style="color: #eaeaea" for="position" class="form-label">Ваша должность</label>
+                <input type="text" class="form-control" id="position" required>
+            </div>
+            <button style="margin-bottom: 5px; color: #eaeaea" type="button" onclick="addUser()" class="btn btn-primary">Зарегистрироваться</button>
+            <br>
+            <label style="color: #eaeaea" for="login_btn" class="form-label">Уже есть аккаунт?</label>
+            <br>
+            <button id="login_btn" style="margin-bottom: 5px; color: #eaeaea" type="button" onclick="location.href='index.html'" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+<script src="bootstrap/bootstrap.bundle.js"></script>
+<script src="Main1.js"></script>
 </body>
 </html>

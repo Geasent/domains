@@ -95,18 +95,28 @@ function addUser($conn, $data) {
     $full_name = $data['full_name'];
     $email = $data['email'];
     $phone = $data['phone'];
-    $date_of_birth = $data['date_of_birth'];
     $gender = $data['gender'];
     $position = $data['position'];
 
-    mysqli_query($conn, "INSERT INTO `users` (`id`, `login`, `pass`, `role`, `full_name`, `email`, `phone`, `date_of_birth`, `gender`, `position`) VALUES (NULL, '$login', '$pass', '$role', '$full_name', '$email', '$phone', '$date_of_birth', '$gender', '$position')");
+    $unigueUser = mysqli_query($conn, "SELECT * FROM `users` WHERE `login` = '$login'");
 
-    http_response_code(201);
-    $res = [
-        "status" => true,
-        "user_id" => mysqli_insert_id($conn)
-    ];
-    echo json_encode($res);
+    if(mysqli_num_rows($unigueUser) === 0) {
+
+        mysqli_query($conn, "INSERT INTO `users` (`id`, `login`, `pass`, `role`, `full_name`, `email`, `phone`, `gender`, `position`) VALUES (NULL, '$login', '$pass', '$role', '$full_name', '$email', '$phone', '$gender', '$position')");
+
+        http_response_code(201);
+        $res = [
+            "status" => true,
+            "user_id" => mysqli_insert_id($conn)
+        ];
+        echo json_encode($res);       
+    }
+    else {
+        $res_not_unique = [
+            "user_id" => 0
+        ];
+        echo json_encode($res_not_unique);
+    }
 
 }
 
@@ -156,11 +166,10 @@ function updateUser($conn, $id, $data) {
     $full_name = $data['full_name'];
     $email = $data['email'];
     $phone = $data['phone'];
-    $date_of_birth = $data['date_of_birth'];
     $gender = $data['gender'];
     $position = $data['position'];
 
-    mysqli_query($conn, "UPDATE `users` SET `login` = '$login', `pass` = '$pass', `role` = '$role', `full_name` = '$full_name', `email` = '$email', `phone` = '$phone', `date_of_birth` = '$date_of_birth', `gender` = '$gender', `position` = '$position' WHERE `users`.`id` = '$id'");
+    mysqli_query($conn, "UPDATE `users` SET `login` = '$login', `pass` = '$pass', `role` = '$role', `full_name` = '$full_name', `email` = '$email', `phone` = '$phone', `gender` = '$gender', `position` = '$position' WHERE `users`.`id` = '$id'");
 
     http_response_code(200);
     $res = [
@@ -256,10 +265,9 @@ function auth($conn, $data) {
         $full_name = $user['full_name'];
         $email = $user['email'];
         $phone = $user['phone'];
-        $date_of_birth = $user['date_of_birth'];
         $gender = $user['gender'];
         $position = $user['position'];
-        mysqli_query($conn, "INSERT INTO `session` (`id`, `user_id`, `full_name`, `email`, `phone`, `date_of_birth`, `gender`, `position`) VALUES (NULL, '$user_id', '$full_name', '$email', '$phone', '$date_of_birth', '$gender', '$position')");
+        mysqli_query($conn, "INSERT INTO `session` (`id`, `user_id`, `full_name`, `email`, `phone`, `gender`, `position`) VALUES (NULL, '$user_id', '$full_name', '$email', '$phone', '$gender', '$position')");
 
         echo json_encode($user);
     }

@@ -6,6 +6,8 @@
  header('Access-Control-Allow-Credentials: true');
  header('Content-type: json/application');
 
+ 
+
  global $conn;
  require 'connect.php';
  require 'functions.php';
