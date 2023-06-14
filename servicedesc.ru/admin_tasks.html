@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>Tasks</title>
     <link href="bootstrap/bootstrap.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
     <style>
@@ -39,9 +39,23 @@
     </div>
 </nav>
 <div class="container text-center"  id="admin_main">
-    <div class="row" style="align-content: center">
-        <label style="color: #eaeaea" for="admin-new-tasks" class="form-label">Новые задачи</label>
-        <div id="admin-new-tasks" class="col task-list-new" style="margin: auto "></div>
+    <div class="row">
+        <div class="col">
+            <label style="color: #eaeaea" for="new-tasks" class="form-label">Новые</label>
+            <div id="new-tasks" class="col task-list-new"></div>
+        </div>
+        <div class="col">
+            <label style="color: #eaeaea" for="success-tasks" class="form-label">Принятые</label>
+            <div id="success-tasks" class="col task-list-success"></div>
+        </div>
+        <div class="col">
+            <label style="color: #eaeaea" for="process-tasks" class="form-label">В работе</label>
+            <div id="process-tasks" class="col task-list-process"></div>
+        </div>
+        <div class="col">
+            <label style="color: #eaeaea" for="complete-tasks" class="form-label">Выполненные</label>
+            <div id="complete-tasks" class="col task-list-complete"></div>
+        </div>
     </div>
 </div>
 

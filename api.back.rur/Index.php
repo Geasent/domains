@@ -16,7 +16,9 @@
  $q = $_GET['q'];
  $params = explode('/', $q);
  $type = $params[0];
- $id = $params[1];
+ if(isset($params[1])){
+     $id = $params[1];
+ }
 
  switch ($method) {
      case 'GET':
@@ -46,6 +48,9 @@
              else {
                  getMessages($conn);
              }
+         }
+         if ($type === 'session') {
+             getSession($conn);
          }
          break;
      case 'POST':

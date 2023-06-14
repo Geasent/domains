@@ -13,7 +13,7 @@ function getUsers($conn) {
 }
 
 function getTasks($conn) {
-    $tasks = mysqli_query($conn, 'SELECT * FROM `tasks`');
+    $tasks = mysqli_query($conn, "SELECT `tasks`.`id`, `name`, `start_date`, `end_date`, `priority`, `description`, `user_id`, `status`, `full_name` FROM `tasks` LEFT JOIN `users` ON `tasks`.`user_id` = `users`.`id`");
 
     $tasks_list = [];
 
@@ -51,6 +51,18 @@ function getUser($conn, $id) {
         $user = mysqli_fetch_assoc($user);
         echo json_encode($user);
     }
+}
+
+function getSession($conn) {
+    $sessionInf = mysqli_query($conn, "SELECT * FROM `session`");
+
+    $session_list = [];
+
+    while($session = mysqli_fetch_assoc($sessionInf)) {
+        $session_list[] = $session;
+    }
+
+    echo json_encode($session_list);
 }
 
 function getTask($conn, $id) {

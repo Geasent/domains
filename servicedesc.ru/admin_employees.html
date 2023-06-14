@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>Employees</title>
     <link href="bootstrap/bootstrap.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
     <style>
         body {background-color: #303030}
     </style>
 </head>
-<body onload="getNewTasks()">
+<body onload="getEmployess()">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="admin_main.html">Bozika</a>
@@ -39,9 +39,9 @@
     </div>
 </nav>
 <div class="container text-center"  id="admin_main">
-    <div class="row" style="align-content: center">
-        <label style="color: #eaeaea" for="admin-new-tasks" class="form-label">Новые задачи</label>
-        <div id="admin-new-tasks" class="col task-list-new" style="margin: auto "></div>
+    <label style="color: #eaeaea" for="admin-new-tasks" class="form-label">Сотрудники</label>
+    <div class="row" id="admin-new-tasks" style="align-content: center">
+        <div class="card-group employees-card"></div>
     </div>
 </div>
 
