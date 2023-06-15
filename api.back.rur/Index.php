@@ -31,6 +31,9 @@
                  getUsers($conn);
              }
          }
+         if ($type === 'adminUsers') {
+             getAdminUsers($conn);
+         }
          if ($type === 'tasks') {
 
              if(isset($id)) {
@@ -57,11 +60,17 @@
          if ($type === 'users') {
              addUser($conn, $_POST);
          }
-         if ($type === 'task') {
+         if ($type === 'tasks') {
              addTask($conn, $_POST);
          }
-         if ($type === 'message') {
+         if ($type === 'messages') {
              addMessage($conn, $_POST);
+         }
+         if ($type === 'tasksById') {
+             getTasksById($conn, $_POST);
+         }
+         if ($type === 'messagesById') {
+             getMessagesById($conn, $_POST);
          }
          break;
      case 'PATCH':
@@ -85,6 +94,11 @@
                  $data = json_decode($data, true);
                  updateMessage($conn, $id, $data);
              }
+         }
+         if ($type === 'taskStatus') {
+                 $data = file_get_contents('php://input');
+                 $data = json_decode($data, true);
+                 updateTaskStatus($conn, $data);
          }
          break;
      case 'DELETE':

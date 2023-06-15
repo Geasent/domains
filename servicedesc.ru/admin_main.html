@@ -9,7 +9,7 @@
         body {background-color: #303030}
     </style>
 </head>
-<body onload="getNewTasks()">
+<body onload="getTasks()">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="admin_main.html">Bozika</a>
@@ -31,7 +31,7 @@
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModalAdminProfile">Профиль</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModalProfile">Профиль</a></li>
                     <li><a class="dropdown-item" onclick="exit()" href="#">Выйти</a></li>
                 </ul>
             </div>
@@ -45,14 +45,14 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModalAdminProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="background-color: #303030">
             <div class="modal-header">
                 <h1 style="color: white" class="modal-title fs-5" id="exampleModalLabel">Ваш профиль</h1>
             </div>
             <div class="modal-body"  style="color: white">
-                <div class="container-fluid adminProfile">
+                <div class="container-fluid Profile">
 
                 </div>
                 <div class="modal-footer">

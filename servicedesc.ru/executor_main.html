@@ -2,28 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Employees</title>
+    <title>Executer</title>
     <link href="bootstrap/bootstrap.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
     <style>
         body {background-color: #303030}
     </style>
 </head>
-<body onload="getEmployess()">
+<body onload="getTasksById(); getNewTasks()">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="admin_main.html">Bozika</a>
+        <a class="navbar-brand" href="executor_main.html">Bozika</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="admin_tasks.html">Задачи</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="admin_employees.html">Сотрудники</a>
-                </li>
+
             </ul>
             <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,9 +34,19 @@
     </div>
 </nav>
 <div class="container text-center"  id="admin_main">
-    <label style="color: #eaeaea" for="admin-new-tasks" class="form-label">Сотрудники</label>
-    <div class="row" id="admin-new-tasks" style="align-content: center">
-        <div class="card-group employees-card"></div>
+    <div class="row">
+        <div class="col">
+            <label style="color: #eaeaea" for="new-tasks" class="form-label">Новые</label>
+            <div id="new-tasks" class="col task-list-new"></div>
+        </div>
+        <div class="col">
+            <label style="color: #eaeaea" for="success-tasks" class="form-label">Принятые</label>
+            <div id="success-tasks" class="col task-list-success"></div>
+        </div>
+        <div class="col">
+            <label style="color: #eaeaea" for="process-tasks" class="form-label">В работе</label>
+            <div id="process-tasks" class="col task-list-process"></div>
+        </div>
     </div>
 </div>
 
