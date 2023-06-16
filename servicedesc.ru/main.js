@@ -1,13 +1,13 @@
 let id = null
 
 async function exit (){
-    window.location.href = 'index.html';
+    window.location.href = 'index.php';
     const res = await fetch('http://api.back.rur/sessionClose');
 }
 
 async function sessionTimeout() {
     const res = await fetch('http://api.back.rur/sessionClose');
-    window.location.href = 'index.html';
+    window.location.href = 'index.php';
 }
 
 async function sessionClose() {
@@ -39,12 +39,12 @@ async function auth () {
     }
     else {
         if (data.role === "1")
-        window.location.href = 'admin_main.html';
+        window.location.href = 'admin_main.php';
         if (data.role === "2") {
-        window.location.href = 'executor_main.html';
+        window.location.href = 'executor_main.php';
         }
         if (data.role === "3") {
-        window.location.href = 'customer_main.html';
+        window.location.href = 'customer_main.php';
         }
     }
 
@@ -139,7 +139,7 @@ if(pass === confirm_pass) {
     }
     else {
         alert('Пользователь создан');
-        window.location.href = 'index.html';
+        location.reload()
     }
 }
 else {
@@ -693,6 +693,87 @@ async function getTasks () {
 
     })
 
+    const customerDeleteTasks = tasks.filter(task => {
+        if (task.status === "4") {
+            return true
+        }
+    })
+
+
+    customerDeleteTasks.forEach((customerDeleteTask) => {
+        if(customerDeleteTask.priority === "0") {customerDeleteTask.priority = "Низкий"}
+        if(customerDeleteTask.priority === "1") {customerDeleteTask.priority = "Средний"}
+        if(customerDeleteTask.priority === "2") {customerDeleteTask.priority = "Высокий"}
+        if (customerDeleteTask.role === "1") {
+            customerDeleteTask.full_name = "Не назначен"
+        }
+        document.querySelector('.admin-task-list-customer-delete').innerHTML +=
+            `
+                    
+                    <div class="card border-danger mb-3" style="max-width: 18rem; margin: auto; background-color: #303030">
+                        <a href="" style="text-decoration: none" data-bs-toggle="modal" data-bs-target="#exampleModal${customerDeleteTask.id}">
+                            <div class="card-header bg-transparent border-danger" style="color: white">${customerDeleteTask.name}</div>
+                                <div class="card-body text-danger">
+                                    <p class="card-text" style="color: white">${customerDeleteTask.description}</p>
+                                </div>
+                        </a>
+                    </div>
+
+                    <div class="modal fade" id="exampleModal${customerDeleteTask.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color: #303030">
+                          <div class="modal-header">
+                            <h1 style="color: white" class="modal-title fs-5" id="exampleModalLabel">${customerDeleteTask.name}</h1>
+                          </div>
+                          <div class="modal-body"  style="color: white">
+                              <div class="container-fluid">
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Название :</div>
+                                              <div class="col-4 col-sm-6">${customerDeleteTask.name}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Описание :</div>
+                                              <div class="col-4 col-sm-6">${customerDeleteTask.description}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Исполнитель :</div>
+                                              <div class="col-4 col-sm-6">${customerDeleteTask.full_name}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Приоритет :</div>
+                                              <div class="col-4 col-sm-6">${customerDeleteTask.priority}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                              </div>
+                          <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-danger" onclick="deleteTask(${customerDeleteTask.id})" data-bs-dismiss="modal">Удалить</button>
+                            <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`
+
+    })
+
 
 
 
@@ -850,7 +931,7 @@ async function getEmployess() {
                                   <br>
                               </div>
                           <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-danger" onclick="deleteUser(${user.id})" data-bs-dismiss="modal">Удалить</button>
+                          <button type="button" class="btn btn-outline-danger" onclick="deleteUser('${user.id}', '${user.role}')" data-bs-dismiss="modal">Удалить</button>
                             <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                           </div>
                         </div>
@@ -864,7 +945,61 @@ async function getEmployess() {
 
 }
 
-async function deleteUser(id) {
+async function updateStatus(data) {
+    const statusRes = await fetch('http://api.back.rur/taskStatus', {
+        method: 'PATCH',
+        body: JSON.stringify(data)
+    });
+}
+
+async function deleteUser(id, role) {
+
+    if (role === "2") {
+        let formData = new FormData();
+        formData.append('id', id);
+
+        const executor_res = await fetch('http://api.back.rur/tasksById', {
+            method: 'POST',
+            body: formData
+        });
+
+        let tasks = await executor_res.json();
+
+        tasks.forEach((task) => {
+            const data = {
+                id: task.id,
+                status: "0",
+                executor_id: "14",
+                customer_id: task.customer_user_id
+            };
+            updateStatus(data)
+
+        })
+    }
+
+    if (role === "3") {
+        let formData = new FormData();
+        formData.append('id', id);
+
+        const executor_res = await fetch('http://api.back.rur/tasksById', {
+            method: 'POST',
+            body: formData
+        });
+
+        let tasks = await executor_res.json();
+
+        tasks.forEach((task) => {
+            const data = {
+                id: task.id,
+                status: "4",
+                executor_id: task.executor_user_id,
+                customer_id: "1"
+            };
+            updateStatus(data)
+
+        })
+    }
+
     const res = await fetch(`http://api.back.rur/users/${id}`, {
         method: "DELETE"
     })
@@ -874,9 +1009,13 @@ async function deleteUser(id) {
         location.reload();
     }
 
+
+
 }
 
 async function deleteTask(id) {
+
+
     const res = await fetch(`http://api.back.rur/tasks/${id}`, {
         method: "DELETE"
     })
@@ -1013,7 +1152,8 @@ async function addMessage(task_id, customer_id, theme, status) {
     const data = {
         id: task_id,
         status: status,
-        executor_id: user_id
+        executor_id: user_id,
+        customer_id: customer_id
     };
 
     const statusRes = await fetch('http://api.back.rur/taskStatus', {
@@ -1023,6 +1163,173 @@ async function addMessage(task_id, customer_id, theme, status) {
 
     location.reload()
 
+}
+
+async function getCustomerTasksById () {
+
+
+    id = null;
+
+    let res_session = await fetch('http://api.back.rur/session');
+    let sessions = await res_session.json();
+
+    sessions.forEach((session) => {
+
+
+        id = session.user_id;
+        if (session.gender === "1") {
+            session.gender = "Мужской"
+        }
+        if (session.gender === "2") {
+            session.gender = "Женский"
+        }
+        if (session.position === "1") {
+            sessionPosition = "Администратор"
+        }
+        if (session.position === "2") {
+            sessionPosition = "Техничекий специалист"
+        }
+        if (session.position === "3") {
+            sessionPosition = "Сотрудник"
+        }
+
+
+        document.querySelector('.Profile').innerHTML +=
+            `<div class="row">
+              <div class="col-sm-9">
+                  <div class="row">
+                      <div class="col-8 col-sm-6">ФИО :</div>
+                      <div class="col-4 col-sm-6">${session.full_name}</div>
+                  </div>
+              </div>                                  
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-9">
+                  <div class="row">
+                      <div class="col-8 col-sm-6">Email :</div>
+                      <div class="col-4 col-sm-6">${session.email}</div>
+                  </div>
+              </div>                                  
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-9">
+                  <div class="row">
+                      <div class="col-8 col-sm-6">Телефон :</div>
+                      <div class="col-4 col-sm-6">${session.phone}</div>
+                  </div>
+              </div>                                  
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-9">
+                  <div class="row">
+                      <div class="col-8 col-sm-6">Пол :</div>
+                      <div class="col-4 col-sm-6">${session.gender}</div>
+                  </div>
+              </div>                                  
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-9">
+                  <div class="row">
+                      <div class="col-8 col-sm-6">Должность :</div>
+                      <div class="col-4 col-sm-6">${sessionPosition}</div>
+                  </div>
+              </div>                                  
+          </div>
+          <br>`
+    })
+
+
+    let formData = new FormData();
+    formData.append('id', id);
+
+    const res = await fetch('http://api.back.rur/tasksById', {
+        method: 'POST',
+        body: formData
+    });
+
+
+    let tasks = await res.json();
+
+
+    tasks.forEach((task) => {
+        if (task.priority === "0") {
+            task.priority = "Низкий"
+        }
+        if (task.priority === "1") {
+            task.priority = "Средний"
+        }
+        if (task.priority === "2") {
+            task.priority = "Высокий"
+        }
+        document.querySelector('.customer-task-list').innerHTML +=
+            `
+                    
+                    <div class="card border-danger mb-3" style="max-width: 18rem; margin: auto; background-color: #303030">
+                        <a href="" style="text-decoration: none" data-bs-toggle="modal" data-bs-target="#exampleModal${task.id}">
+                            <div class="card-header bg-transparent border-danger" style="color: white">${task.name}</div>
+                                <div class="card-body text-danger">
+                                    <p class="card-text" style="color: white">${task.description}</p>
+                                </div>
+                                </a>
+                    </div>
+
+                    <div class="modal fade" id="exampleModal${task.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color: #303030">
+                          <div class="modal-header">
+                            <h1 style="color: white" class="modal-title fs-5" id="exampleModalLabel">${task.name}</h1>
+                          </div>
+                          <div class="modal-body"  style="color: white">
+                              <div class="container-fluid">
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Название :</div>
+                                              <div class="col-4 col-sm-6">${task.name}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Описание :</div>
+                                              <div class="col-4 col-sm-6">${task.description}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Исполнитель :</div>
+                                              <div class="col-4 col-sm-6">${task.full_name}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Приоритет :</div>
+                                              <div class="col-4 col-sm-6">${task.priority}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  </div>
+                          <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-success" onclick="message('${task.id}', '${task.customer_user_id}', '${task.name}', '2')" data-bs-dismiss="modal">В работу</button>
+                            <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`
+    })
 }
 
 async function getTasksById () {
@@ -1102,21 +1409,13 @@ async function getTasksById () {
         body: formData
     });
 
-
-
     let tasks = await res.json();
-
-
-
-
-
 
     const successTasks = tasks.filter(task => {
         if (task.status === "1") {
             return true
         }
     })
-
 
     successTasks.forEach((successTask) => {
         if(successTask.priority === "0") {successTask.priority = "Низкий"}
@@ -1259,6 +1558,83 @@ async function getTasksById () {
                                   </div>
                           <div class="modal-footer">
                           <button type="button" class="btn btn-outline-success" onclick="message('${processTask.id}', '${processTask.customer_user_id}', '${processTask.name}', '3')" data-bs-dismiss="modal">Выполнено</button>
+                            <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`
+
+    })
+
+    const completeTasks = tasks.filter(task => {
+        if (task.status === "3") {
+            return true
+        }
+    })
+
+
+    completeTasks.forEach((completeTask) => {
+        if(completeTask.priority === "0") {completeTask.priority = "Низкий"}
+        if(completeTask.priority === "1") {completeTask.priority = "Средний"}
+        if(completeTask.priority === "2") {completeTask.priority = "Высокий"}
+        document.querySelector('.task-list-complete').innerHTML +=
+            `
+                    
+                    <div class="card border-danger mb-3" style="max-width: 18rem; margin: auto; background-color: #303030">
+                        <a href="" style="text-decoration: none" data-bs-toggle="modal" data-bs-target="#exampleModal${completeTask.id}">
+                            <div class="card-header bg-transparent border-danger" style="color: white">${completeTask.name}</div>
+                                <div class="card-body text-danger">
+                                    <p class="card-text" style="color: white">${completeTask.description}</p>
+                                </div>
+                                </a>
+                    </div>
+
+                    <div class="modal fade" id="exampleModal${completeTask.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color: #303030">
+                          <div class="modal-header">
+                            <h1 style="color: white" class="modal-title fs-5" id="exampleModalLabel">${completeTask.name}</h1>
+                          </div>
+                          <div class="modal-body"  style="color: white">
+                              <div class="container-fluid">
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Название :</div>
+                                              <div class="col-4 col-sm-6">${completeTask.name}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Описание :</div>
+                                              <div class="col-4 col-sm-6">${completeTask.description}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Исполнитель :</div>
+                                              <div class="col-4 col-sm-6">${completeTask.full_name}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                      <div class="col-sm-9">
+                                          <div class="row">
+                                              <div class="col-8 col-sm-6">Приоритет :</div>
+                                              <div class="col-4 col-sm-6">${completeTask.priority}</div>
+                                          </div>
+                                      </div>                                  
+                                  </div>
+                                  <br>
+                                  </div>
+                          <div class="modal-footer">
                             <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                           </div>
                         </div>

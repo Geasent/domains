@@ -2,23 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Executer</title>
+    <title>Tasks</title>
     <link href="bootstrap/bootstrap.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
     <style>
         body {background-color: #303030}
     </style>
 </head>
-<body onload="getTasksById(); getNewTasks()">
+<body onload="getTasks()">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="executor_main.html">Bozika</a>
+        <a class="navbar-brand" href="admin_main.php">Bozika</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="admin_tasks.html">Задачи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="admin_employees.php">Сотрудники</a>
+                </li>
             </ul>
             <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,11 +46,19 @@
         </div>
         <div class="col">
             <label style="color: #eaeaea" for="success-tasks" class="form-label">Принятые</label>
-            <div id="success-tasks" class="col task-list-success"></div>
+            <div id="success-tasks" class="col admin-task-list-success"></div>
         </div>
         <div class="col">
             <label style="color: #eaeaea" for="process-tasks" class="form-label">В работе</label>
-            <div id="process-tasks" class="col task-list-process"></div>
+            <div id="process-tasks" class="col admin-task-list-process"></div>
+        </div>
+        <div class="col">
+            <label style="color: #eaeaea" for="complete-tasks" class="form-label">Выполненные</label>
+            <div id="complete-tasks" class="col admin-task-list-complete"></div>
+        </div>
+        <div class="col">
+            <label style="color: #eaeaea" for="complete-tasks" class="form-label">Заказчик удалён</label>
+            <div id="customer-delete-tasks" class="col admin-task-list-customer-delete"></div>
         </div>
     </div>
 </div>
@@ -69,6 +82,6 @@
 </div>
 
 <script src="bootstrap/bootstrap.bundle.js"></script>
-<script src="Main1.js"></script>
+<script src="main.js"></script>
 </body>
 </html>

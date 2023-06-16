@@ -9,7 +9,7 @@
         body {background-color: #303030}
     </style>
 </head>
-<body onload="getMessageById()">
+<body onload="getMessageById(); getCustomerTasksById()">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="customer_main.html">Bozika</a>
@@ -67,8 +67,14 @@
                 <label style="color: #eaeaea" for="customer-add-task" class="form-label">Появилась проблема?</label>
             </div>
             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Создать задачу</button>
+                <div class="row">
+                    <div class="col">
+                        <label style="color: #eaeaea" for="new-tasks" class="form-label">Ваши задачи</label>
+                        <div id="new-tasks" class="col customer-task-list"></div>
+                    </div>
+            </div>
         </div>
-        <div id="customer-messages" class="col message-list" style="margin: auto ">
+        <div id="customer-messages" class="col message-list" style="margin: auto; margin-top: 0px ">
             <div class="row" style="align-content: center">
                 <label style="color: #eaeaea" for="customer-add-task" class="form-label">Ваши сообщения</label>
             </div>
@@ -96,6 +102,6 @@
 </div>
 
 <script src="bootstrap/bootstrap.bundle.js"></script>
-<script src="Main1.js"></script>
+<script src="main.js"></script>
 </body>
 </html>

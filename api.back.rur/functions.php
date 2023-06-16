@@ -1,7 +1,7 @@
 <?php
 
 function getUsers($conn) {
-    $users = mysqli_query($conn, "SELECT * FROM `users` WHERE `role` <> '1'");
+    $users = mysqli_query($conn, "SELECT * FROM `users` WHERE `role` <> '1' AND `role` <> '4'");
 
     $users_list = [];
 
@@ -39,7 +39,7 @@ function getTasks($conn) {
 function getTasksById($conn, $data) {
     $id = $data['id'];
 
-    $tasks = mysqli_query($conn, "SELECT `tasks`.`id`, `name`, `priority`, `description`, `executor_user_id`, `customer_user_id`, `status`, `full_name`, `users`.`role` FROM `tasks` LEFT JOIN `users` ON `tasks`.`executor_user_id` = `users`.`id` WHERE `tasks`.`executor_user_id` = '$id'");
+    $tasks = mysqli_query($conn, "SELECT `tasks`.`id`, `name`, `priority`, `description`, `executor_user_id`, `customer_user_id`, `status`, `full_name`, `users`.`role` FROM `tasks` LEFT JOIN `users` ON `tasks`.`executor_user_id` = `users`.`id` WHERE `tasks`.`executor_user_id` = '$id' OR `tasks`.`customer_user_id` = '$id'");
 
     $tasks_list = [];
 
@@ -253,8 +253,9 @@ function updateTaskStatus($conn, $data) {
     $status = $data['status'];
     $id = $data['id'];
     $executor_id = $data['executor_id'];
+    $customer_id = $data['customer_id'];
 
-    mysqli_query($conn, "UPDATE `tasks` SET `status` = '$status', `executor_user_id` = '$executor_id' WHERE `tasks`.`id` = '$id'");
+    mysqli_query($conn, "UPDATE `tasks` SET `status` = '$status', `executor_user_id` = '$executor_id', `customer_user_id` = '$customer_id' WHERE `tasks`.`id` = '$id'");
 
     http_response_code(200);
     $res = [

@@ -19,10 +19,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="admin_tasks.html">Задачи</a>
+                    <a class="nav-link active" aria-current="page" href="admin_tasks.php">Задачи</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="admin_employees.html">Сотрудники</a>
+                    <a class="nav-link active" aria-current="page" href="admin_employees.php">Сотрудники</a>
                 </li>
             </ul>
             <div class="dropdown">
@@ -64,6 +64,6 @@
 </div>
 
 <script src="bootstrap/bootstrap.bundle.js"></script>
-<script src="Main1.js"></script>
+<script src="main.js"></script>
 </body>
 </html>

@@ -20,14 +20,10 @@
             <label style="color: #eaeaea" for="pass" class="form-label">Пароль</label>
             <input type="password" class="form-control" id="pass" required>
         </div>
-        <button style="margin-bottom: 5px; color: #eaeaea" type="button" onclick="auth()" class="btn btn-primary">Войти</button>
-        <br>
-            <label style="color: #eaeaea" for="reg_btn" class="form-label">Нет аккаунта?</label>
-        <br>
-        <button id="reg_btn" style="margin-bottom: 5px; color: #eaeaea" type="button" onclick="location.href='register.html'" class="btn btn-primary">Зарегистрироваться</button>
+        <button style="margin-bottom: 5px; color: #eaeaea" type="button" onclick="auth()" class="btn btn-danger">Войти</button>
     </form>
 </div>
 <script src="bootstrap/bootstrap.bundle.js"></script>
-<script src="Main1.js"></script>
+<script src="main.js"></script>
 </body>
 </html>

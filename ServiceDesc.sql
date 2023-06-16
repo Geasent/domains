@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 15 2023 г., 11:10
+-- Время создания: Июн 16 2023 г., 09:17
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -64,9 +64,19 @@ CREATE TABLE `tasks` (
   `priority` int NOT NULL DEFAULT '1',
   `description` text,
   `status` int NOT NULL DEFAULT '0',
-  `executor_user_id` tinyint NOT NULL,
+  `executor_user_id` tinyint NOT NULL DEFAULT '14',
   `customer_user_id` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `name`, `priority`, `description`, `status`, `executor_user_id`, `customer_user_id`) VALUES
+(38, 'Поменять чернила', 1, 'Поменять чернила в принтере', 0, 14, 19),
+(39, 'Переустановить Windows', 1, 'Переустановить Windows', 0, 14, 19),
+(40, 'Подключить интернет', 1, 'Подключить интернет', 0, 14, 19),
+(41, 'Поменять сетевой фильтр', 1, 'Поменять сетевой фильтр', 0, 14, 19);
 
 -- --------------------------------------------------------
 
@@ -91,13 +101,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `pass`, `role`, `full_name`, `email`, `phone`, `gender`, `position`) VALUES
+(1, 'deletedCustomer', '123', 4, 'deleted', 'deleted', 0, 0, '0'),
 (14, 'loginAdmin', '123', 1, 'Крюков Ефим Антонович', 'email1@email.ru', 89196426203, 1, '1'),
-(15, 'loginExecutor', '123', 2, 'Орехов Даниил Серапионович', 'email2@email.ru', 89196578394, 1, '2'),
-(16, 'loginCustomer1', '123', 3, 'Горшков Адольф Игоревич', 'email3@email.ru', 89196472983, 1, '3'),
-(17, 'loginCustomer2', '123', 3, 'Полякова Индира Ростиславовна\r\n', 'email4@email.ru', 89196472942, 2, '3'),
-(18, 'loginCustomer3', '123', 3, 'Гордеева Властилина Натановна\r\n', 'email5@email.ru', 89196472923, 2, '3'),
-(19, 'loginCustomer4', '123', 3, 'Никонов Ермолай Ярославович', 'email6@email.ru', 89196423923, 1, '3'),
-(20, 'loginExecutor2', '123', 2, 'Шишкие Даниил Серапионович', 'email7@email.ru', 89196578394, 1, '2');
+(19, 'loginCustomer2', '123', 3, 'Никонов Ермолай Ярославович', 'email6@email.ru', 89196423923, 1, '3'),
+(27, 'loginExecutor2', '123', 2, 'Фомичев Артём', 'fomichev@mail.ru', 89197689874, 1, '2');
 
 --
 -- Индексы сохранённых таблиц
@@ -108,8 +115,8 @@ INSERT INTO `users` (`id`, `login`, `pass`, `role`, `full_name`, `email`, `phone
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`customer_id`),
-  ADD KEY `task_id` (`task_id`);
+  ADD KEY `messages_ibfk_1` (`customer_id`),
+  ADD KEY `messages_ibfk_2` (`task_id`);
 
 --
 -- Индексы таблицы `session`
@@ -122,7 +129,7 @@ ALTER TABLE `session`
 --
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`executor_user_id`),
+  ADD KEY `executor_user_id` (`executor_user_id`),
   ADD KEY `customer_user_id` (`customer_user_id`);
 
 --
@@ -139,43 +146,36 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT для таблицы `session`
 --
 ALTER TABLE `session`
-  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` tinyint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Ограничения внешнего ключа таблицы `messages`
---
-ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Ограничения внешнего ключа таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`executor_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tasks_ibfk_2` FOREIGN KEY (`customer_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`executor_user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `tasks_ibfk_2` FOREIGN KEY (`customer_user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
