@@ -35,7 +35,7 @@ async function auth () {
     let id = data.id;
 
     if (data.id === 0) {
-        alert('gg');
+        alert('Введены неверные данные');
     }
     else {
         if (data.role === "1")
@@ -148,78 +148,9 @@ else {
 
 }
 
+
+
 async function getNewTasks () {
-
-    let res_session = await fetch('http://api.back.rur/session');
-    let sessions = await res_session.json();
-
-    sessions.forEach((session) => {
-
-
-        if (session.gender === "1") {
-            session.gender = "Мужской"
-        }
-        if (session.gender === "2") {
-            session.gender = "Женский"
-        }
-        if (session.position === "1") {
-            sessionPosition = "Администратор"
-        }
-        if (session.position === "2") {
-            sessionPosition = "Техничекий специалист"
-        }
-        if (session.position === "3") {
-            sessionPosition = "Сотрудник"
-        }
-
-
-        document.querySelector('.Profile').innerHTML +=
-            `<div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">ФИО :</div>
-                      <div class="col-4 col-sm-6">${session.full_name}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Email :</div>
-                      <div class="col-4 col-sm-6">${session.email}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Телефон :</div>
-                      <div class="col-4 col-sm-6">${session.phone}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Пол :</div>
-                      <div class="col-4 col-sm-6">${session.gender}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Должность :</div>
-                      <div class="col-4 col-sm-6">${sessionPosition}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>`
-    })
 
 
     let res = await fetch('http://api.back.rur/tasks');
@@ -1192,54 +1123,6 @@ async function getCustomerTasksById () {
         if (session.position === "3") {
             sessionPosition = "Сотрудник"
         }
-
-
-        document.querySelector('.Profile').innerHTML +=
-            `<div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">ФИО :</div>
-                      <div class="col-4 col-sm-6">${session.full_name}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Email :</div>
-                      <div class="col-4 col-sm-6">${session.email}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Телефон :</div>
-                      <div class="col-4 col-sm-6">${session.phone}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Пол :</div>
-                      <div class="col-4 col-sm-6">${session.gender}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="row">
-                      <div class="col-8 col-sm-6">Должность :</div>
-                      <div class="col-4 col-sm-6">${sessionPosition}</div>
-                  </div>
-              </div>                                  
-          </div>
-          <br>`
     })
 
 
