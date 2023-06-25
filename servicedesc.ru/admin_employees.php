@@ -108,7 +108,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
         </div>

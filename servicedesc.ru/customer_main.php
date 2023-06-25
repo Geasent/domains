@@ -37,25 +37,25 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header" style="background-color: #303030">
+                    <h1 class="modal-title fs-5" style="background-color: #303030; color: #eaeaea" id="exampleModalLabel1">Новая задача</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="color: #eaeaea" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <div class="modal-body" style="background-color: #303030">
+                    <form style="background-color: #303030">
                         <div class="mb-3">
-                            <label for="Name" class="form-label">Название</label>
+                            <label style="color: #eaeaea" for="Name" class="form-label">Название</label>
                             <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
-                            <label for="Priority" class="form-label">Приоритет</label>
+                            <label style="color: #eaeaea" for="Priority" class="form-label">Приоритет</label>
                             <input type="text" class="form-control" id="priority">
                         </div>
                         <div class="mb-3">
-                            <label for="Description" class="form-label">Описание</label>
+                            <label style="color: #eaeaea" for="Description" class="form-label">Описание</label>
                             <input type="text" class="form-control" id="description">
                         </div>
-                        <button type="button" onclick="addTask()" class="btn btn-primary">Создать</button>
+                        <button type="button" onclick="addTask()" class="btn btn-danger">Создать</button>
                     </form>
                 </div>
             </div>
@@ -94,7 +94,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button  style="color: white" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
         </div>

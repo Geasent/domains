@@ -181,7 +181,8 @@ function addTask($conn, $data) {
     $executor_user_id = $data['executor_user_id'];
     $customer_user_id = $data['customer_user_id'];
 
-    mysqli_query($conn, "INSERT INTO `tasks` (`id`, `name`, `priority`, `description`,`status`, `executor_user_id`, `customer_user_id`) VALUES (NULL, '$name', '$priority', '$description', '$status', '$executor_user_id', '$customer_user_id')");
+    mysqli_query($conn, "INSERT INTO `tasks` (`id`, `name`, `priority`, `description`,`status`, `executor_user_id`, `customer_user_id`) 
+VALUES (NULL, '$name', '$priority', '$description', '$status', '$executor_user_id', '$customer_user_id')");
 
     http_response_code(201);
     $res = [
@@ -199,7 +200,8 @@ function addMessage($conn, $data) {
     $theme = $data['theme'];
     $message_text = $data['message_text'];
 
-    mysqli_query($conn, "INSERT INTO `messages` (`id`, task_id, `customer_id`, `theme`, `message_text`) VALUES (NULL, '$task_id', '$customer_id', '$theme', '$message_text')");
+    mysqli_query($conn, "INSERT INTO `messages` (`id`, task_id, `customer_id`, `theme`, `message_text`) 
+VALUES (NULL, '$task_id', '$customer_id', '$theme', '$message_text')");
 
     http_response_code(201);
     $res = [
@@ -221,7 +223,8 @@ function updateUser($conn, $id, $data) {
     $gender = $data['gender'];
     $position = $data['position'];
 
-    mysqli_query($conn, "UPDATE `users` SET `login` = '$login', `pass` = '$pass', `role` = '$role', `full_name` = '$full_name', `email` = '$email', `phone` = '$phone', `gender` = '$gender', `position` = '$position' WHERE `users`.`id` = '$id'");
+    mysqli_query($conn, "UPDATE `users` SET `login` = '$login', `pass` = '$pass', `role` = '$role', `full_name` = '$full_name',
+ `email` = '$email', `phone` = '$phone', `gender` = '$gender', `position` = '$position' WHERE `users`.`id` = '$id'");
 
     http_response_code(200);
     $res = [
@@ -238,7 +241,8 @@ function updateTask($conn, $id, $data) {
     $description = $data['description'];
     $user_id = $data['user_id'];
 
-    mysqli_query($conn, "UPDATE `tasks` SET `name` = '$name', `priority` = '$priority', `description` = '$description', `user_id` = '$user_id' WHERE `tasks`.`id` = '$id'");
+    mysqli_query($conn, "UPDATE `tasks` SET `name` = '$name', `priority` = '$priority', 
+`description` = '$description', `user_id` = '$user_id' WHERE `tasks`.`id` = '$id'");
 
     http_response_code(200);
     $res = [
@@ -255,7 +259,8 @@ function updateTaskStatus($conn, $data) {
     $executor_id = $data['executor_id'];
     $customer_id = $data['customer_id'];
 
-    mysqli_query($conn, "UPDATE `tasks` SET `status` = '$status', `executor_user_id` = '$executor_id', `customer_user_id` = '$customer_id' WHERE `tasks`.`id` = '$id'");
+    mysqli_query($conn, "UPDATE `tasks` SET `status` = '$status', 
+`executor_user_id` = '$executor_id', `customer_user_id` = '$customer_id' WHERE `tasks`.`id` = '$id'");
 
     http_response_code(200);
     $res = [
@@ -336,7 +341,8 @@ function auth($conn, $data) {
         $phone = $user['phone'];
         $gender = $user['gender'];
         $position = $user['position'];
-        mysqli_query($conn, "INSERT INTO `session` (`id`, `user_id`, `full_name`, `email`, `phone`, `gender`, `position`, `role`) VALUES (NULL, '$user_id', '$full_name', '$email', '$phone', '$gender', '$position', '$role')");
+        mysqli_query($conn, "INSERT INTO `session` (`id`, `user_id`, `full_name`, `email`, `phone`, `gender`, `position`, `role`) 
+        VALUES (NULL, '$user_id', '$full_name', '$email', '$phone', '$gender', '$position', '$role')");
 
         echo json_encode($user);
     }
